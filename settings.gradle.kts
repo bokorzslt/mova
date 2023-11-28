@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Mova"
 include(":app")
- 
+include(":data")
+include(":domain")
+include(":ui")

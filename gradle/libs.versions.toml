@@ -1,0 +1,46 @@
+[versions]
+minSdk = "24"
+targetSdk = "33"
+compileSdk = "34"
+jvmTarget = "1.8"
+ktx = "1.9.0"
+appcompat = "1.6.1"
+material = "1.10.0"
+constraintLayout = "2.1.4"
+junit = "4.13.2"
+junitExt = "1.1.5"
+espresso = "3.5.1"
+androidGradlePlugin = "8.1.1"
+kotlinAndroidPlugin = "1.9.0"
+okHttp = "4.11.0"
+okHttpLogging = "4.11.0"
+retrofit = "2.9.0"
+retrofitSerialisation = "1.0.0"
+kotlinSerialisation = "1.8.10"
+kotlinSerialisationJson = "1.5.1"
+koin = "3.4.3"
+
+[libraries]
+androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraint-layout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+junit-ext = { group = "androidx.test.ext", name = "junit", version.ref = "junitExt" }
+androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+
+# Networking
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-serialisation = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerialisation" }
+okHttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp" }
+okHttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpLogging" }
+kotlin-serialisation = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialisationJson" }
+
+# DI
+koin-core = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidPlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+serialisation = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialisation" }
