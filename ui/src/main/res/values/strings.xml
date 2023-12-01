@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mova</string>
+    <string name="menu_item_home">Home</string>
+    <string name="menu_item_explore">Explore</string>
+    <string name="menu_item_my_list">My List</string>
+    <string name="menu_item_profile">Profile</string>
 </resources>
