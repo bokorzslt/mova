@@ -35,13 +35,21 @@ android {
 
 dependencies {
 
+    implementation(project(":domain"))
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.androidx.espresso)
+
+    // Di
     implementation(libs.koin.core)
+
+    // Networking
     implementation(libs.okHttp)
     implementation(libs.okHttp.logging)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.serialisation)
+    implementation(libs.kotlin.serialisation)
 }
