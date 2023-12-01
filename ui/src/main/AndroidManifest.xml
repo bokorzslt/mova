@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="com.bokorzslt.ui.features.main.MainActivity"
+            android:name="com.bokorzslt.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

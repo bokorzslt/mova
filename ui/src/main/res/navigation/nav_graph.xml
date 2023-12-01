@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.bokorzslt.ui.features.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.bokorzslt.ui.features.explore.ExploreFragment"
+        android:label="ExploreFragment" />
+    <fragment
+        android:id="@+id/myListFragment"
+        android:name="com.bokorzslt.ui.features.mylist.MyListFragment"
+        android:label="MyListFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.bokorzslt.ui.features.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+</navigation>

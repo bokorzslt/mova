@@ -19,6 +19,7 @@ retrofitSerialisation = "1.0.0"
 kotlinSerialisation = "1.8.10"
 kotlinSerialisationJson = "1.5.1"
 koin = "3.4.3"
+navigation = "2.7.5"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -38,6 +39,11 @@ kotlin-serialisation = { group = "org.jetbrains.kotlinx", name = "kotlinx-serial
 
 # DI
 koin-core = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+
+# Navigation
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation"}
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
