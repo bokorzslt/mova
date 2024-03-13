@@ -47,10 +47,16 @@ dependencies {
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.androidx.espresso)
 
-    // DI
+
     implementation(libs.koin.core)
 
-    // Navigation
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+
+    implementation(libs.androidx.viewmodel)
+    implementation(libs.androidx.runtime)
+
+    implementation(libs.timber)
+
+    implementation(libs.glide)
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- RoundedCornerImageView attributes -->
+    <declare-styleable name="RoundedCornerImageView">
+        <attr name="round_radius" format="dimension" />
+        <attr name="rounded_top_left" format="boolean" />
+        <attr name="rounded_top_right" format="boolean" />
+        <attr name="rounded_bottom_left" format="boolean" />
+        <attr name="rounded_bottom_right" format="boolean" />
+    </declare-styleable>
+</resources>

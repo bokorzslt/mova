@@ -1,7 +1,12 @@
 package com.bokorzslt.domain.di
 
+import com.bokorzslt.domain.dispatchers.DefaultDispatchersProvider
+import com.bokorzslt.domain.dispatchers.DispatchersProvider
+import com.bokorzslt.domain.features.home.usecase.GetHomePageStructureUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
+    single<DispatchersProvider> { DefaultDispatchersProvider() }
 
+    single { GetHomePageStructureUseCase(get(), get()) }
 }

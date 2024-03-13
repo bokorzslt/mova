@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/movie_card_width"
+    android:layout_height="@dimen/movie_card_height"
+    android:layout_marginEnd="@dimen/movie_card_margin_end">
+
+    <com.bokorzslt.ui.generic.views.RoundedCornerImageView
+        android:id="@+id/movie_card_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:round_radius="@dimen/movie_card_corner_radius"
+        app:rounded_bottom_left="true"
+        app:rounded_bottom_right="true"
+        app:rounded_top_left="true"
+        app:rounded_top_right="true" />
+
+    <TextView
+        android:id="@+id/movie_card_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movie_card_rating_margin"
+        android:layout_marginTop="@dimen/movie_card_rating_margin"
+        android:background="@drawable/movie_card_rating_background"
+        android:fontFamily="@font/urbanist_semibold"
+        android:paddingHorizontal="@dimen/movie_card_rating_horizontal_padding"
+        android:paddingVertical="@dimen/movie_card_rating_vertical_padding"
+        android:textColor="@color/white"
+        android:textSize="@dimen/movie_card_rating_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

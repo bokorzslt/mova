@@ -51,4 +51,7 @@ dependencies {
 
     // Di
     implementation(libs.koin.core)
+
+    // Timber
+    implementation(libs.timber)
 }
