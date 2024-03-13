@@ -1,4 +1,4 @@
-package com.bokorzslt.data.features.movies.models
+package com.bokorzslt.data.features.home.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

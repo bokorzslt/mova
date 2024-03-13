@@ -20,6 +20,9 @@ kotlinSerialisation = "1.8.10"
 kotlinSerialisationJson = "1.5.1"
 koin = "3.4.3"
 navigation = "2.7.5"
+androidxViewModel = "2.6.1"
+timber = "4.7.1"
+glide = "4.15.1"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -41,12 +44,22 @@ kotlin-serialisation = { group = "org.jetbrains.kotlinx", name = "kotlinx-serial
 koin-core = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
 # Navigation
-androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation"}
-androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation"}
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 
+# View Model and Runtime
+androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxViewModel" }
+androidx-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxViewModel" }
+
+# Logging
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# Image loading
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidPlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 serialisation = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialisation" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "ktx" }
