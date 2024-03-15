@@ -19,4 +19,13 @@
     <dimen name="gallery_description_text_size">12sp</dimen>
     <dimen name="gallery_title_margin_bottom">86dp</dimen>
     <dimen name="gallery_description_margin_top">8dp</dimen>
+    <dimen name="app_bar_margin_top">76dp</dimen>
+    <dimen name="gallery_search_icon_margin_end">20dp</dimen>
+    <dimen name="button_horizontal_padding">16dp</dimen>
+    <dimen name="button_vertical_padding">8dp</dimen>
+    <dimen name="gallery_item_margin_top">8dp</dimen>
+    <dimen name="gallery_button_margin_top">12dp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
+    <dimen name="button_drawable_padding">8dp</dimen>
+    <dimen name="gallery_button_margin_start">12dp</dimen>
 </resources>

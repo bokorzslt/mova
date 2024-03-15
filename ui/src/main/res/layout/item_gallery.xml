@@ -39,7 +39,7 @@
         android:id="@+id/gallery_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/gallery_item_margin_top"
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_medium"
         android:maxLines="1"
@@ -49,5 +49,57 @@
         app:layout_constraintStart_toStartOf="@id/gallery_title"
         app:layout_constraintTop_toBottomOf="@id/gallery_title"
         tools:text="Action, Superhero, Science Fiction, ..." />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/app_bar_margin_top"
+        android:src="@drawable/mova_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/gallery_search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/gallery_search_icon_margin_end"
+        android:src="@drawable/ico_search"
+        app:layout_constraintEnd_toStartOf="@id/gallery_notification_icon"
+        app:layout_constraintTop_toTopOf="@id/gallery_notification_icon"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/gallery_notification_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_bar_margin_top"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:src="@drawable/ico_notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/gallery_play_button"
+        style="@style/Button"
+        android:layout_marginTop="@dimen/gallery_button_margin_top"
+        android:text="@string/button_play"
+        app:drawableStartCompat="@drawable/ico_play"
+        app:layout_constraintStart_toStartOf="@id/gallery_description"
+        app:layout_constraintTop_toBottomOf="@id/gallery_description" />
+
+    <TextView
+        android:id="@+id/gallery_my_list_button"
+        style="@style/Button"
+        android:layout_marginStart="@dimen/gallery_button_margin_start"
+        android:layout_marginTop="@dimen/gallery_button_margin_top"
+        android:background="@drawable/button_background_white"
+        android:text="@string/button_my_list"
+        app:drawableStartCompat="@drawable/ico_add"
+        app:layout_constraintStart_toEndOf="@id/gallery_play_button"
+        app:layout_constraintTop_toBottomOf="@id/gallery_description" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

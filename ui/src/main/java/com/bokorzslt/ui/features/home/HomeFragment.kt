@@ -80,6 +80,18 @@ class HomeFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = HomeAdapter(modules)
+        recyclerView.adapter = HomeAdapter(
+            modules = modules,
+            searchClickListener = { navigateToSearch() },
+            notificationClickListener = { navigateToNotifications() }
+        )
+    }
+
+    private fun navigateToSearch() {
+        // TODO: Add search screen
+    }
+
+    private fun navigateToNotifications() {
+        // TODO: Add notifications screen
     }
 }
