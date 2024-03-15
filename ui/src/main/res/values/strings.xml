@@ -4,4 +4,6 @@
     <string name="menu_item_explore">Explore</string>
     <string name="menu_item_my_list">My List</string>
     <string name="menu_item_profile">Profile</string>
+    <string name="button_play">Play</string>
+    <string name="button_my_list">My List</string>
 </resources>

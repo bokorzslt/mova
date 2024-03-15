@@ -1,6 +1,7 @@
 package com.bokorzslt.ui.features.home.adapter
 
 import android.view.LayoutInflater
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,9 @@ import com.bokorzslt.ui.utils.StringUtils
 import com.bumptech.glide.Glide
 
 class HomeAdapter(
-    private val modules: List<HomePageModule>
+    private val modules: List<HomePageModule>,
+    private val searchClickListener: OnClickListener,
+    private val notificationClickListener: OnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int =
@@ -31,7 +34,9 @@ class HomeAdapter(
                     ),
                     parent,
                     false
-                )
+                ),
+                searchClickListener,
+                notificationClickListener
             )
 
             STRIPE_VIEW_TYPE -> StripeViewHolder(
@@ -57,8 +62,15 @@ class HomeAdapter(
     override fun getItemCount(): Int = modules.size
 
     class GalleryViewHolder(
-        private val binding: ItemGalleryBinding
+        private val binding: ItemGalleryBinding,
+        searchClickListener: OnClickListener,
+        notificationClickListener: OnClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.gallerySearchIcon.setOnClickListener(searchClickListener)
+            binding.galleryNotificationIcon.setOnClickListener(notificationClickListener)
+        }
 
         fun bind(movie: Movie) {
             Glide.with(binding.root)
@@ -71,7 +83,7 @@ class HomeAdapter(
     }
 
     class StripeViewHolder(
-        private val binding: ItemStripeBinding,
+        private val binding: ItemStripeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
