@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/details_loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:indicatorColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/details_image"
+        android:layout_width="@dimen/details_image_width"
+        android:layout_height="@dimen/details_image_height"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/details_title"
+        style="@style/Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:textSize="@dimen/details_title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/details_image"
+        tools:text="Avater: The Way of Water" />
+
+    <ImageView
+        android:id="@+id/details_rating_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:src="@drawable/ico_rating"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/details_title"
+        app:layout_constraintTop_toBottomOf="@id/details_title"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/details_rating_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:fontFamily="@font/urbanist_semibold"
+        android:textColor="@color/red"
+        android:textSize="@dimen/details_rating_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/details_rating_image"
+        app:layout_constraintStart_toEndOf="@id/details_rating_image"
+        app:layout_constraintTop_toTopOf="@id/details_rating_image"
+        tools:text="9.8" />
+
+    <ImageView
+        android:id="@+id/details_arrow_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:src="@drawable/ico_arrow"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/details_rating_text"
+        app:layout_constraintStart_toEndOf="@id/details_rating_text"
+        app:layout_constraintTop_toTopOf="@id/details_rating_text"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/details_release_year_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:fontFamily="@font/urbanist_semibold"
+        android:textColor="@color/greyscale_800"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintBottom_toBottomOf="@id/details_arrow_image"
+        app:layout_constraintStart_toEndOf="@id/details_arrow_image"
+        app:layout_constraintTop_toTopOf="@id/details_arrow_image" />
+
+    <TextView
+        android:id="@+id/details_play_button"
+        style="@style/Button"
+        android:layout_width="@dimen/details_button_width"
+        android:layout_height="@dimen/details_button_height"
+        android:layout_marginTop="@dimen/margin_default"
+        android:text="@string/button_play"
+        android:visibility="invisible"
+        app:drawableStartCompat="@drawable/ico_play"
+        app:layout_constraintStart_toStartOf="@id/details_rating_image"
+        app:layout_constraintTop_toBottomOf="@id/details_rating_image" />
+
+    <TextView
+        android:id="@+id/details_download_button"
+        style="@style/StrokeButton"
+        android:layout_width="@dimen/details_button_width"
+        android:layout_height="@dimen/details_button_height"
+        android:layout_marginStart="@dimen/margin_8"
+        android:text="@string/button_download"
+        android:visibility="invisible"
+        app:drawableStartCompat="@drawable/ico_download"
+        app:layout_constraintStart_toEndOf="@id/details_play_button"
+        app:layout_constraintTop_toTopOf="@id/details_play_button" />
+
+    <TextView
+        android:id="@+id/details_genres"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:fontFamily="@font/urbanist_medium"
+        android:textColor="@color/greyscale_900"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="@id/details_title"
+        app:layout_constraintStart_toStartOf="@id/details_title"
+        app:layout_constraintTop_toBottomOf="@id/details_play_button"
+        tools:text="Genres: Action, Superhero, Science Fiction" />
+
+    <TextView
+        android:id="@+id/details_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:fontFamily="@font/urbanist_medium"
+        android:textColor="@color/greyscale_800"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintEnd_toEndOf="@id/details_title"
+        app:layout_constraintStart_toStartOf="@id/details_title"
+        app:layout_constraintTop_toBottomOf="@id/details_genres"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/details_cast_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="@id/details_title"
+        app:layout_constraintStart_toStartOf="@id/details_title"
+        app:layout_constraintTop_toBottomOf="@id/details_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

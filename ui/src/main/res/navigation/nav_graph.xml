@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.bokorzslt.ui.features.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.bokorzslt.ui.features.explore.ExploreFragment"
@@ -20,4 +24,12 @@
         android:id="@+id/profileFragment"
         android:name="com.bokorzslt.ui.features.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.bokorzslt.ui.features.details.DetailsFragment"
+        android:label="DetailsFragment">
+        <argument
+            android:name="movieId"
+            app:argType="long" />
+    </fragment>
 </navigation>

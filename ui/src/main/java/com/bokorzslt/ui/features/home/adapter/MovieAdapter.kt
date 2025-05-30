@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.ui.R
 import com.bokorzslt.ui.databinding.ItemMovieBinding
-import com.bokorzslt.ui.utils.StringUtils
+import com.bokorzslt.ui.utils.formatAsRating
 import com.bumptech.glide.Glide
 
 class MovieAdapter(
-    private val movies: List<Movie>
+    private val movies: List<Movie>,
+    private val movieClickListener: MovieClickListener
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -22,18 +23,23 @@ class MovieAdapter(
 
     override fun getItemCount() = movies.size
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: ItemMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            itemView.setOnClickListener {
+                movieClickListener(movies[adapterPosition])
+            }
+        }
+
         fun bind(movie: Movie) {
             Glide.with(binding.root)
-                .load(movie.posterPath)
+                .load(movie.posterUrl)
                 .placeholder(R.drawable.movie_card_image_placeholder)
                 .error(R.drawable.movie_card_image_placeholder)
                 .into(binding.movieCardImage)
-            binding.movieCardRating.text = String.format("%.2f", movie.rating)
-                .replace(StringUtils.COMMA_SEPARATOR, StringUtils.DOT_SEPARATOR)
+            binding.movieCardRating.text = movie.rating.formatAsRating()
         }
     }
 }

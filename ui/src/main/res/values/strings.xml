@@ -6,4 +6,6 @@
     <string name="menu_item_profile">Profile</string>
     <string name="button_play">Play</string>
     <string name="button_my_list">My List</string>
+    <string name="button_download">Download</string>
+    <string name="details_genre_label">Genre: </string>
 </resources>

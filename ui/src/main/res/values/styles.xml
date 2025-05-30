@@ -6,7 +6,7 @@
     </style>
 
     <style name="Title">
-        <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
         <item name="android:fontFamily">@font/urbanist_bold</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
@@ -16,15 +16,22 @@
     <style name="Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/button_background_red</item>
+        <item name="android:background">@drawable/button_background_red_filled</item>
         <item name="android:drawablePadding">@dimen/button_drawable_padding</item>
         <item name="android:fontFamily">@font/urbanist_semibold</item>
-        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:paddingStart">@dimen/button_horizontal_padding</item>
         <item name="android:paddingEnd">@dimen/button_horizontal_padding</item>
         <item name="android:paddingTop">@dimen/button_vertical_padding</item>
         <item name="android:paddingBottom">@dimen/button_vertical_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="StrokeButton" parent="@style/Button">
+        <item name="android:background">@drawable/button_background_red_stroke</item>
+        <item name="android:textColor">@color/red</item>
     </style>
 
 </resources>

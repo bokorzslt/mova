@@ -10,7 +10,7 @@ constraintLayout = "2.1.4"
 junit = "4.13.2"
 junitExt = "1.1.5"
 espresso = "3.5.1"
-androidGradlePlugin = "8.1.1"
+androidGradlePlugin = "8.9.0"
 kotlinAndroidPlugin = "1.9.0"
 okHttp = "4.11.0"
 okHttpLogging = "4.11.0"
@@ -63,3 +63,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAnd
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 serialisation = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialisation" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "ktx" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
