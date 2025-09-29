@@ -23,6 +23,7 @@ navigation = "2.7.5"
 androidxViewModel = "2.6.1"
 timber = "4.7.1"
 glide = "4.15.1"
+viewPager = "1.0.0"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -56,6 +57,9 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 
 # Image loading
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
+# View Pager
+view-pager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewPager" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

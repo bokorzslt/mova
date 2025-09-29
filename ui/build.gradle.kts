@@ -60,4 +60,6 @@ dependencies {
     implementation(libs.timber)
 
     implementation(libs.glide)
+
+    implementation(libs.view.pager)
 }

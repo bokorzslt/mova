@@ -35,15 +35,14 @@
         android:id="@+id/cast_card_job"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_regular"
         android:maxLines="1"
         android:textColor="@color/greyscale_700"
         android:textSize="@dimen/text_size_x_small"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/cast_card_name"
         app:layout_constraintStart_toStartOf="@id/cast_card_name"
-        app:layout_constraintTop_toBottomOf="@id/cast_card_name"
         tools:text="Director" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

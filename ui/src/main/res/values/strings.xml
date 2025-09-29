@@ -8,4 +8,7 @@
     <string name="button_my_list">My List</string>
     <string name="button_download">Download</string>
     <string name="details_genre_label">Genre: </string>
+    <string name="details_trailers_tab">Trailers</string>
+    <string name="details_more_like_this_tab">Related</string>
+    <string name="details_comments_tab">Comments</string>
 </resources>

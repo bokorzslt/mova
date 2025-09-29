@@ -14,16 +14,23 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.bokorzslt.domain.features.details.models.MovieDetails
 import com.bokorzslt.ui.MainActivity
 import com.bokorzslt.ui.R
 import com.bokorzslt.ui.databinding.FragmentDetailsBinding
 import com.bokorzslt.ui.features.details.adapter.CastAdapter
+import com.bokorzslt.ui.features.details.tabs.CommentsFragment
+import com.bokorzslt.ui.features.details.tabs.SimilarMoviesFragment
+import com.bokorzslt.ui.features.details.tabs.trailers.TrailersFragment
 import com.bokorzslt.ui.utils.StringUtils
 import com.bokorzslt.ui.utils.formatAsRating
 import com.bokorzslt.ui.utils.show
 import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -69,6 +76,12 @@ class DetailsFragment : Fragment() {
 
     private val castRecyclerView: RecyclerView
         get() = binding.detailsCastList
+
+    private val tabLayout: TabLayout
+        get() = binding.detailsTabLayout
+
+    private val viewPager: ViewPager2
+        get() = binding.detailsViewPager
 
     private val args by navArgs<DetailsFragmentArgs>()
     private val viewModel: DetailsViewModel by viewModel { parametersOf(args.movieId) }
@@ -127,6 +140,8 @@ class DetailsFragment : Fragment() {
         showGenres(movie)
         showDescription(movie)
         showCastList(movie)
+        setupViewPager()
+        setupTabLayout()
     }
 
     private fun loadImage(movie: MovieDetails) =
@@ -171,5 +186,32 @@ class DetailsFragment : Fragment() {
         castRecyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         castRecyclerView.adapter = CastAdapter(movie.castList)
+    }
+
+    private fun setupViewPager() {
+        val fragments = listOf(
+            TrailersFragment.newInstance(args.movieId),
+            SimilarMoviesFragment(),
+            CommentsFragment()
+        )
+
+        viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = fragments.size
+            override fun createFragment(position: Int): Fragment = fragments[position]
+        }
+    }
+
+    private fun setupTabLayout() {
+        val context = context ?: return
+
+        val tabs = listOf(
+            context.getString(R.string.details_trailers_tab),
+            context.getString(R.string.details_more_like_this_tab),
+            context.getString(R.string.details_comments_tab)
+        )
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabs[position]
+        }.attach()
     }
 }
