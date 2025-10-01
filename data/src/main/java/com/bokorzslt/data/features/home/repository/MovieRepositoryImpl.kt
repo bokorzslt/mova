@@ -32,4 +32,7 @@ class MovieRepositoryImpl(
 
     override suspend fun getMovieTrailers(movieId: Long): List<Trailer> =
         remoteMovieDataSource.getMovieTrailers(movieId).toTrailersList()
+
+    override suspend fun getSimilarMovies(movieId: Long): List<Movie> =
+        remoteMovieDataSource.getSimilarMovies(movieId).toMovieList()
 }

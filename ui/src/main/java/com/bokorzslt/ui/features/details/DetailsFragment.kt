@@ -22,7 +22,7 @@ import com.bokorzslt.ui.R
 import com.bokorzslt.ui.databinding.FragmentDetailsBinding
 import com.bokorzslt.ui.features.details.adapter.CastAdapter
 import com.bokorzslt.ui.features.details.tabs.CommentsFragment
-import com.bokorzslt.ui.features.details.tabs.SimilarMoviesFragment
+import com.bokorzslt.ui.features.details.tabs.similar_movies.SimilarMoviesFragment
 import com.bokorzslt.ui.features.details.tabs.trailers.TrailersFragment
 import com.bokorzslt.ui.utils.StringUtils
 import com.bokorzslt.ui.utils.formatAsRating
@@ -191,7 +191,7 @@ class DetailsFragment : Fragment() {
     private fun setupViewPager() {
         val fragments = listOf(
             TrailersFragment.newInstance(args.movieId),
-            SimilarMoviesFragment(),
+            SimilarMoviesFragment.newInstance(args.movieId),
             CommentsFragment()
         )
 

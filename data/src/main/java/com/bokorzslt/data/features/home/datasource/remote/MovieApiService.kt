@@ -22,4 +22,7 @@ interface MovieApiService {
 
     @GET("movie/{movie_id}/videos")
     suspend fun getMovieTrailers(@Path("movie_id") movieId: Long): Response<ResponseData<List<TrailerDto>>>
+
+    @GET("movie/{movie_id}/similar")
+    suspend fun getSimilarMovies(@Path("movie_id") movieId: Long): Response<ResponseData<List<MovieDto>>>
 }

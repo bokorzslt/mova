@@ -77,7 +77,6 @@ class TrailersFragment : Fragment() {
         }
 
     private fun showTrailers(trailers: List<Trailer>) {
-        Timber.d("trailers: $trailers")
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

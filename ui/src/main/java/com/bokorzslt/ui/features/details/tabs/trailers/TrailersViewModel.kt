@@ -25,6 +25,7 @@ class TrailersViewModel(
     val state = mutableState.asStateFlow()
 
     private val errorHandler = CoroutineExceptionHandler { _, throwable ->
+        Timber.e(throwable, "Error loading trailers for movie: $movieId")
         mutableState.value = TrailersUiState.Error(throwable)
     }
 

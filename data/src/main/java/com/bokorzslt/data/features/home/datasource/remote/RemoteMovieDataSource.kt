@@ -20,4 +20,7 @@ class RemoteMovieDataSource(
 
     suspend fun getMovieTrailers(movieId: Long): List<TrailerDto> =
         movieApiService.getMovieTrailers(movieId).safeValidateResponse().results
+
+    suspend fun getSimilarMovies(movieId: Long): List<MovieDto> =
+        movieApiService.getSimilarMovies(movieId).safeValidateResponse().results
 }
