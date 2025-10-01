@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/cast_card_width"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/cast_card_image"
+        android:layout_width="@dimen/cast_card_image_size"
+        android:layout_height="@dimen/cast_card_image_size"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/cast_card_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_semibold"
+        android:maxLines="2"
+        android:textColor="@color/greyscale_900"
+        android:textSize="@dimen/text_size_x_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cast_card_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="James Cameron" />
+
+    <TextView
+        android:id="@+id/cast_card_job"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_regular"
+        android:maxLines="1"
+        android:textColor="@color/greyscale_700"
+        android:textSize="@dimen/text_size_x_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cast_card_name"
+        app:layout_constraintStart_toStartOf="@id/cast_card_name"
+        tools:text="Director" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

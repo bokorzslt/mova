@@ -10,7 +10,7 @@ constraintLayout = "2.1.4"
 junit = "4.13.2"
 junitExt = "1.1.5"
 espresso = "3.5.1"
-androidGradlePlugin = "8.1.1"
+androidGradlePlugin = "8.9.0"
 kotlinAndroidPlugin = "1.9.0"
 okHttp = "4.11.0"
 okHttpLogging = "4.11.0"
@@ -23,6 +23,7 @@ navigation = "2.7.5"
 androidxViewModel = "2.6.1"
 timber = "4.7.1"
 glide = "4.15.1"
+viewPager = "1.0.0"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -57,9 +58,13 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 # Image loading
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
+# View Pager
+view-pager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewPager" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidPlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 serialisation = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialisation" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "ktx" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

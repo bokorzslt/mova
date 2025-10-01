@@ -5,6 +5,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bokorzslt.domain.features.details.models.MovieDetails
 import com.bokorzslt.domain.features.home.models.HomePageModule
 import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.domain.features.home.models.Stripe
@@ -13,8 +14,11 @@ import com.bokorzslt.ui.databinding.ItemStripeBinding
 import com.bokorzslt.ui.utils.StringUtils
 import com.bumptech.glide.Glide
 
+typealias MovieClickListener = (Movie) -> Unit
+
 class HomeAdapter(
     private val modules: List<HomePageModule>,
+    private val movieClickListener: MovieClickListener,
     private val searchClickListener: OnClickListener,
     private val notificationClickListener: OnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -46,7 +50,8 @@ class HomeAdapter(
                     ),
                     parent,
                     false
-                )
+                ),
+                movieClickListener
             )
 
             else -> throw IllegalArgumentException("Unknown view type")
@@ -72,9 +77,9 @@ class HomeAdapter(
             binding.galleryNotificationIcon.setOnClickListener(notificationClickListener)
         }
 
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieDetails) {
             Glide.with(binding.root)
-                .load(movie.backdropPath)
+                .load(movie.backdropUrl)
                 .into(binding.galleryImage)
             binding.galleryTitle.text = movie.title
             binding.galleryDescription.text =
@@ -83,7 +88,8 @@ class HomeAdapter(
     }
 
     class StripeViewHolder(
-        private val binding: ItemStripeBinding
+        private val binding: ItemStripeBinding,
+        private val movieClickListener: MovieClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -94,7 +100,7 @@ class HomeAdapter(
             binding.stripeTitle.text = stripe.title
             binding.stripeRecyclerView.layoutManager =
                 LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
-            binding.stripeRecyclerView.adapter = MovieAdapter(stripe.movies)
+            binding.stripeRecyclerView.adapter = MovieAdapter(stripe.movies, movieClickListener)
         }
     }
 

@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.androidx.navigation.safeargs)
 }
 
 android {
@@ -59,4 +60,6 @@ dependencies {
     implementation(libs.timber)
 
     implementation(libs.glide)
+
+    implementation(libs.view.pager)
 }

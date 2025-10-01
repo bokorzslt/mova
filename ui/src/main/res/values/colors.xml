@@ -4,4 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#9E9E9E</color>
     <color name="red">#E21221</color>
+    <color name="greyscale_500">#9E9E9E</color>
+    <color name="greyscale_600">#757575</color>
+    <color name="greyscale_800">#424242</color>
+    <color name="greyscale_900">#212121</color>
+    <color name="greyscale_700">#616161</color>
 </resources>

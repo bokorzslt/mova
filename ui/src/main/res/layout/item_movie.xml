@@ -31,7 +31,7 @@
         android:paddingHorizontal="@dimen/movie_card_rating_horizontal_padding"
         android:paddingVertical="@dimen/movie_card_rating_vertical_padding"
         android:textColor="@color/white"
-        android:textSize="@dimen/movie_card_rating_text_size"
+        android:textSize="@dimen/text_size_x_small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

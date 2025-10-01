@@ -1,10 +1,10 @@
-package com.bokorzslt.data.features.home.models
+package com.bokorzslt.data.features.details.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NetworkGenre(
+data class GenreDto(
     @SerialName("id")
     val id: Int,
 

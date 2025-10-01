@@ -2,22 +2,19 @@ package com.bokorzslt.domain.features.home.usecase
 
 import com.bokorzslt.domain.features.home.models.HomePageModule
 import com.bokorzslt.domain.features.home.models.Stripe
-import com.bokorzslt.domain.features.home.repository.GenreRepository
 import com.bokorzslt.domain.features.home.repository.MovieRepository
 
 class GetHomePageStructureUseCase(
-    private val movieRepository: MovieRepository,
-    private val genreRepository: GenreRepository
+    private val movieRepository: MovieRepository
 ) {
 
     suspend operator fun invoke(): List<HomePageModule> =
         mutableListOf<HomePageModule>().apply {
 
-            genreRepository.initialize()
-
             val topRatedMovies = movieRepository.getMoviesByCategory(TOP_RATED_CATEGORY)
 
-            add(HomePageModule.GalleryModule(topRatedMovies.shuffled().first()))
+            val randomMovieId = topRatedMovies.shuffled().first().id
+            add(HomePageModule.GalleryModule(movieRepository.getMovieDetails(randomMovieId)))
 
             add(
                 HomePageModule.StripeModule(

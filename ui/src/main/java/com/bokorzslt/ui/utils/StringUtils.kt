@@ -4,4 +4,5 @@ object StringUtils {
     const val DOT_SEPARATOR = "."
     const val COMMA_SEPARATOR = ","
     const val COMMA_SEPARATOR_WITH_SPACE = ", "
+    const val RATING_FORMAT = "%.2f"
 }

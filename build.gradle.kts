@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.serialisation) version libs.versions.kotlinSerialisation.get()
+    alias(libs.plugins.androidx.navigation.safeargs) apply false
 }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bokorzslt.ui.databinding.ActivityMainBinding
+import com.bokorzslt.ui.utils.hide
+import com.bokorzslt.ui.utils.show
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,5 +24,13 @@ class MainActivity : AppCompatActivity() {
                 NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    fun showBottomNavigation() {
+        binding.bottomNavigationView.show()
+    }
+
+    fun hideBottomNavigation() {
+        binding.bottomNavigationView.hide()
     }
 }

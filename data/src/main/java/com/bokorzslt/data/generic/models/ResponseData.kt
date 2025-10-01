@@ -6,8 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseData<T>(
 
+    @SerialName("id")
+    val id: Int? = null,
+
     @SerialName("page")
-    val page: Int,
+    val page: Int? = null,
 
     @SerialName("results")
     val results: T

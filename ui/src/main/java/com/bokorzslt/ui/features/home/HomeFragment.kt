@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bokorzslt.domain.features.home.models.HomePageModule
+import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.ui.databinding.FragmentHomeBinding
 import com.bokorzslt.ui.features.home.adapter.HomeAdapter
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -67,7 +69,7 @@ class HomeFragment : Fragment() {
                         }
 
                         is HomeViewModel.HomeUiState.Error -> {
-                            Timber.d("Error loading home page")
+                            Timber.d("Error loading home page: ${state.throwable}")
                             loadingSpinner.hide()
                         }
                     }
@@ -82,9 +84,15 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.adapter = HomeAdapter(
             modules = modules,
+            movieClickListener = { navigateToDetails(it) },
             searchClickListener = { navigateToSearch() },
             notificationClickListener = { navigateToNotifications() }
         )
+    }
+
+    private fun navigateToDetails(movie: Movie) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movie.id)
+        findNavController().navigate(action)
     }
 
     private fun navigateToSearch() {
