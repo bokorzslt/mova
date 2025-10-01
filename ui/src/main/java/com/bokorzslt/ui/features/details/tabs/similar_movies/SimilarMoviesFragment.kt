@@ -86,6 +86,7 @@ class SimilarMoviesFragment : Fragment() {
         val adapter = MovieAdapter(movies) { movie ->
             // Handle movie click - can be implemented later if needed
         }
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         val verticalSpacing = resources.getDimension(R.dimen.margin_12)
         recyclerView.addItemDecoration(VerticalSpacingItemDecoration(verticalSpacing.toInt()))

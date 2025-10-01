@@ -3,10 +3,12 @@ package com.bokorzslt.data.features.home.repository
 import com.bokorzslt.data.features.details.mapper.mapCastToCastList
 import com.bokorzslt.data.features.details.mapper.mapCrewToCastList
 import com.bokorzslt.data.features.details.mapper.toMovieDetails
+import com.bokorzslt.data.features.details.mapper.toReviewList
 import com.bokorzslt.data.features.details.mapper.toTrailersList
 import com.bokorzslt.data.features.home.datasource.remote.RemoteMovieDataSource
 import com.bokorzslt.data.features.home.mapper.toMovieList
 import com.bokorzslt.domain.features.details.models.MovieDetails
+import com.bokorzslt.domain.features.details.models.Review
 import com.bokorzslt.domain.features.details.models.Trailer
 import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.domain.features.home.repository.MovieRepository
@@ -35,4 +37,7 @@ class MovieRepositoryImpl(
 
     override suspend fun getSimilarMovies(movieId: Long): List<Movie> =
         remoteMovieDataSource.getSimilarMovies(movieId).toMovieList()
+
+    override suspend fun getMovieReviews(movieId: Long): List<Review> =
+        remoteMovieDataSource.getMovieReviews(movieId).toReviewList()
 }

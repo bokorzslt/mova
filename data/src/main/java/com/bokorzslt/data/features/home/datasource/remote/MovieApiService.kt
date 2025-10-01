@@ -2,6 +2,7 @@ package com.bokorzslt.data.features.home.datasource.remote
 
 import com.bokorzslt.data.features.details.models.CreditsDto
 import com.bokorzslt.data.features.details.models.MovieDetailsDto
+import com.bokorzslt.data.features.details.models.ReviewDto
 import com.bokorzslt.data.features.details.models.TrailerDto
 import com.bokorzslt.data.features.home.models.MovieDto
 import com.bokorzslt.data.generic.models.ResponseData
@@ -25,4 +26,7 @@ interface MovieApiService {
 
     @GET("movie/{movie_id}/similar")
     suspend fun getSimilarMovies(@Path("movie_id") movieId: Long): Response<ResponseData<List<MovieDto>>>
+
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getMovieReviews(@Path("movie_id") movieId: Long): Response<ResponseData<List<ReviewDto>>>
 }

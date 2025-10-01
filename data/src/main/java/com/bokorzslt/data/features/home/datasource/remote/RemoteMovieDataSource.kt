@@ -2,6 +2,7 @@ package com.bokorzslt.data.features.home.datasource.remote
 
 import com.bokorzslt.data.features.details.models.CreditsDto
 import com.bokorzslt.data.features.details.models.MovieDetailsDto
+import com.bokorzslt.data.features.details.models.ReviewDto
 import com.bokorzslt.data.features.details.models.TrailerDto
 import com.bokorzslt.data.features.home.models.MovieDto
 import com.bokorzslt.data.generic.network.helpers.safeValidateResponse
@@ -23,4 +24,7 @@ class RemoteMovieDataSource(
 
     suspend fun getSimilarMovies(movieId: Long): List<MovieDto> =
         movieApiService.getSimilarMovies(movieId).safeValidateResponse().results
+
+    suspend fun getMovieReviews(movieId: Long): List<ReviewDto> =
+        movieApiService.getMovieReviews(movieId).safeValidateResponse().results
 }

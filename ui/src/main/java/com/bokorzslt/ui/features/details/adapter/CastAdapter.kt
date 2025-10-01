@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bokorzslt.domain.features.details.models.Cast
+import com.bokorzslt.ui.R
 import com.bokorzslt.ui.databinding.ItemCastBinding
 import com.bumptech.glide.Glide
 
@@ -29,6 +30,8 @@ class CastAdapter(
         fun bind(cast: Cast) {
             Glide.with(binding.root)
                 .load(cast.profileUrl)
+                .error(R.drawable.review_card_image_placeholder)
+                .placeholder(R.drawable.review_card_image_placeholder)
                 .circleCrop()
                 .into(binding.castCardImage)
             binding.castCardName.text = cast.name

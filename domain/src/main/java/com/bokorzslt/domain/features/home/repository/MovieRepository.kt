@@ -1,6 +1,7 @@
 package com.bokorzslt.domain.features.home.repository
 
 import com.bokorzslt.domain.features.details.models.MovieDetails
+import com.bokorzslt.domain.features.details.models.Review
 import com.bokorzslt.domain.features.details.models.Trailer
 import com.bokorzslt.domain.features.home.models.Movie
 
@@ -12,4 +13,6 @@ interface MovieRepository {
     suspend fun getMovieTrailers(movieId: Long): List<Trailer>
 
     suspend fun getSimilarMovies(movieId: Long): List<Movie>
+
+    suspend fun getMovieReviews(movieId: Long): List<Review>
 }

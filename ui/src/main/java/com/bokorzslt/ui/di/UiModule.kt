@@ -1,6 +1,7 @@
 package com.bokorzslt.ui.di
 
 import com.bokorzslt.ui.features.details.DetailsViewModel
+import com.bokorzslt.ui.features.details.tabs.comments.CommentsViewModel
 import com.bokorzslt.ui.features.details.tabs.similar_movies.SimilarMoviesViewModel
 import com.bokorzslt.ui.features.details.tabs.trailers.TrailersViewModel
 import com.bokorzslt.ui.features.home.HomeViewModel
@@ -13,4 +14,5 @@ val uiModule = module {
     viewModel { DetailsViewModel(get(), get(), get()) }
     viewModel { TrailersViewModel(get(), get(), get()) }
     viewModel { SimilarMoviesViewModel(get(), get(), get()) }
+    viewModel { CommentsViewModel(get(), get(), get()) }
 }

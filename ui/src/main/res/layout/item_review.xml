@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/review_item_height"
+    android:layout_marginBottom="@dimen/margin_20">
+
+    <ImageView
+        android:id="@+id/review_card_image"
+        android:layout_width="@dimen/review_item_image_size"
+        android:layout_height="@dimen/review_item_image_size"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/review_card_author_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_bold"
+        android:maxLines="1"
+        android:textColor="@color/greyscale_900"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintBottom_toBottomOf="@id/review_card_image"
+        app:layout_constraintStart_toEndOf="@id/review_card_image"
+        app:layout_constraintTop_toTopOf="@id/review_card_image" />
+
+    <TextView
+        android:id="@+id/review_card_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_medium"
+        android:maxLines="2"
+        android:textColor="@color/greyscale_900"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/review_card_image" />
+
+    <TextView
+        android:id="@+id/review_card_created_at"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_semibold"
+        android:maxLines="1"
+        android:textColor="@color/greyscale_700"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/review_card_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
