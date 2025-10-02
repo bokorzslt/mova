@@ -1,11 +1,11 @@
 package com.bokorzslt.data.generic.network.helpers
 
 import android.content.Context
+import com.bokorzslt.data.BuildConfig
 import com.bokorzslt.data.generic.network.interceptor.AuthInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.BuildConfig
 import java.io.File
 
 object OkHttpCreator {

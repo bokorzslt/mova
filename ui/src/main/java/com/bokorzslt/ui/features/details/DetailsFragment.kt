@@ -192,21 +192,22 @@ class DetailsFragment : Fragment() {
         if (castRecyclerView.adapter == null) {
             castRecyclerView.setHasFixedSize(true)
             castRecyclerView.layoutManager =
-                LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             castRecyclerView.adapter = CastAdapter(movie.castList)
         }
     }
 
     private fun setupViewPager() {
-        val fragments = listOf(
-            TrailersFragment.newInstance(args.movieId),
-            SimilarMoviesFragment.newInstance(args.movieId),
-            CommentsFragment.newInstance(args.movieId)
-        )
-
-        viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = fragments.size
-            override fun createFragment(position: Int): Fragment = fragments[position]
+        if (viewPager.adapter == null) {
+            viewPager.adapter = object : FragmentStateAdapter(this) {
+                override fun getItemCount(): Int = 3
+                override fun createFragment(position: Int): Fragment = when (position) {
+                    0 -> TrailersFragment.newInstance(args.movieId)
+                    1 -> SimilarMoviesFragment.newInstance(args.movieId)
+                    2 -> CommentsFragment.newInstance(args.movieId)
+                    else -> throw IllegalStateException("Invalid position")
+                }
+            }
         }
     }
 
