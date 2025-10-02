@@ -7,7 +7,6 @@ import com.bokorzslt.ui.generic.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import timber.log.Timber
 
 class TrailersViewModel(
     movieId: Long,
@@ -25,12 +24,10 @@ class TrailersViewModel(
     val state = mutableState.asStateFlow()
 
     private val errorHandler = CoroutineExceptionHandler { _, throwable ->
-        Timber.e(throwable, "Error loading trailers for movie: $movieId")
         mutableState.value = TrailersUiState.Error(throwable)
     }
 
     init {
-        Timber.d("Load trailers for movie: $movieId")
         loadMovieTrailers(movieId)
     }
 

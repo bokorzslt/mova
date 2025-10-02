@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bokorzslt.domain.features.details.models.Trailer
 import com.bokorzslt.ui.databinding.FragmentTrailersBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,6 +41,8 @@ class TrailersFragment : Fragment() {
     private val recyclerView: RecyclerView
         get() = binding.trailersList
 
+    private lateinit var adapter: TrailerAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,12 +54,17 @@ class TrailersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         observeState()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView() {
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        adapter = TrailerAdapter().also {
+            recyclerView.adapter = it
+        }
     }
 
     private fun observeState() =
@@ -67,19 +73,18 @@ class TrailersFragment : Fragment() {
                 viewModel.state.collect { state ->
                     when (state) {
                         is TrailersViewModel.TrailersUiState.Loading -> Unit
-                        is TrailersViewModel.TrailersUiState.Success -> showTrailers(state.trailers)
+                        is TrailersViewModel.TrailersUiState.Success -> adapter.submitList(state.trailers)
                         is TrailersViewModel.TrailersUiState.Error -> {
-                            Timber.e("Could not load trailers for movie: ${state.throwable}")
+                            Timber.e(state.throwable, "Could not load trailers for movie")
+                            adapter.submitList(emptyList())
                         }
                     }
                 }
             }
         }
 
-    private fun showTrailers(trailers: List<Trailer>) {
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = TrailerAdapter(trailers)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

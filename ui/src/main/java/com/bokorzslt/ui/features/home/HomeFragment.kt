@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,10 +12,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bokorzslt.domain.features.home.models.HomePageModule
 import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.ui.databinding.FragmentHomeBinding
 import com.bokorzslt.ui.features.home.adapter.HomeAdapter
+import com.bokorzslt.ui.generic.views.ErrorView
+import com.bokorzslt.ui.utils.hide
+import com.bokorzslt.ui.utils.show
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,7 +34,12 @@ class HomeFragment : Fragment() {
     private val recyclerView: RecyclerView
         get() = binding.homeRecyclerView
 
+    private val errorView: ErrorView
+        get() = binding.errorView
+
     private val viewModel by viewModel<HomeViewModel>()
+
+    private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,13 +51,8 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         observeState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun observeState() {
@@ -60,17 +63,24 @@ class HomeFragment : Fragment() {
                         is HomeViewModel.HomeUiState.Loading -> {
                             Timber.d("Home page loading")
                             loadingSpinner.show()
+                            recyclerView.hide()
+                            errorView.hide()
                         }
 
                         is HomeViewModel.HomeUiState.Success -> {
                             Timber.d("Home page loaded")
                             loadingSpinner.hide()
-                            setupRecyclerView(state.modules)
+                            errorView.hide()
+                            recyclerView.show()
+                            adapter.submitList(state.modules)
                         }
 
                         is HomeViewModel.HomeUiState.Error -> {
-                            Timber.d("Error loading home page: ${state.throwable}")
+                            Timber.e(state.throwable, "Error loading home page: ${state.throwable}")
                             loadingSpinner.hide()
+                            errorView.show()
+                            recyclerView.hide()
+                            adapter.submitList(emptyList())
                         }
                     }
                 }
@@ -78,16 +88,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView(modules: List<HomePageModule>) {
+    private fun setupRecyclerView() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = HomeAdapter(
-            modules = modules,
+        adapter = HomeAdapter(
             movieClickListener = { navigateToDetails(it) },
             searchClickListener = { navigateToSearch() },
             notificationClickListener = { navigateToNotifications() }
-        )
+        ).also {
+            recyclerView.adapter = it
+        }
     }
 
     private fun navigateToDetails(movie: Movie) {
@@ -96,10 +107,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToSearch() {
-        // TODO: Add search screen
+        Toast.makeText(context, "Search clicked", Toast.LENGTH_SHORT).show()
     }
 
     private fun navigateToNotifications() {
-        // TODO: Add notifications screen
+        Toast.makeText(context, "Notifications clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -2,6 +2,8 @@ package com.bokorzslt.ui.features.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.ui.R
@@ -10,18 +12,17 @@ import com.bokorzslt.ui.utils.formatAsRating
 import com.bumptech.glide.Glide
 
 class MovieAdapter(
-    private val movies: List<Movie>,
     private val movieClickListener: MovieClickListener
-) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MOVIE_DIFF) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movies[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(currentList[position])
 
-    override fun getItemCount() = movies.size
 
     inner class ViewHolder(
         private val binding: ItemMovieBinding
@@ -29,7 +30,7 @@ class MovieAdapter(
 
         init {
             itemView.setOnClickListener {
-                movieClickListener(movies[adapterPosition])
+                movieClickListener(currentList[adapterPosition])
             }
         }
 
@@ -40,6 +41,23 @@ class MovieAdapter(
                 .error(R.drawable.movie_card_image_placeholder)
                 .into(binding.movieCardImage)
             binding.movieCardRating.text = movie.rating.formatAsRating()
+        }
+    }
+
+    companion object {
+        private val MOVIE_DIFF = object : DiffUtil.ItemCallback<Movie>() {
+
+            override fun areItemsTheSame(
+                oldItem: Movie,
+                newItem: Movie
+            ): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: Movie,
+                newItem: Movie
+            ): Boolean =
+                oldItem == newItem
         }
     }
 }

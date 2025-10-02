@@ -7,7 +7,6 @@ import com.bokorzslt.ui.generic.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import timber.log.Timber
 
 class SimilarMoviesViewModel(
     movieId: Long,
@@ -25,7 +24,6 @@ class SimilarMoviesViewModel(
     val state = mutableState.asStateFlow()
 
     private val errorHandler = CoroutineExceptionHandler { _, throwable ->
-        Timber.e(throwable, "Error loading similar movies for movie: $movieId")
         mutableState.value = SimilarMoviesUiState.Error(throwable)
     }
 

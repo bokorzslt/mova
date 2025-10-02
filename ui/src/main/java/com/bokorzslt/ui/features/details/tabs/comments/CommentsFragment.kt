@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bokorzslt.domain.features.details.models.Review
 import com.bokorzslt.ui.databinding.FragmentCommentsBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,6 +38,8 @@ class CommentsFragment : Fragment() {
 
     private val viewModel: CommentsViewModel by viewModel { parametersOf(movieId) }
 
+    private lateinit var adapter: ReviewAdapter
+
     private val recyclerView: RecyclerView
         get() = binding.reviewsList
 
@@ -53,12 +54,17 @@ class CommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         observeState()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView() {
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        adapter = ReviewAdapter().also {
+            recyclerView.adapter = it
+        }
     }
 
     private fun observeState() {
@@ -67,19 +73,19 @@ class CommentsFragment : Fragment() {
                 viewModel.state.collect { state ->
                     when (state) {
                         is CommentsViewModel.CommentsUiState.Loading -> Unit
-                        is CommentsViewModel.CommentsUiState.Success -> showReviews(state.reviews)
-                        is CommentsViewModel.CommentsUiState.Error ->
+                        is CommentsViewModel.CommentsUiState.Success -> adapter.submitList(state.reviews)
+                        is CommentsViewModel.CommentsUiState.Error -> {
                             Timber.e(state.throwable, "Could not load reviews for movie")
+                            adapter.submitList(emptyList())
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun showReviews(reviews: List<Review>) {
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = ReviewAdapter(reviews)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

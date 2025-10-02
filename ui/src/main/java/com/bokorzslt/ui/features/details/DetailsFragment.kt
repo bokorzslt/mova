@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,8 +25,10 @@ import com.bokorzslt.ui.features.details.adapter.CastAdapter
 import com.bokorzslt.ui.features.details.tabs.comments.CommentsFragment
 import com.bokorzslt.ui.features.details.tabs.similar_movies.SimilarMoviesFragment
 import com.bokorzslt.ui.features.details.tabs.trailers.TrailersFragment
+import com.bokorzslt.ui.generic.views.ErrorView
 import com.bokorzslt.ui.utils.StringUtils
 import com.bokorzslt.ui.utils.formatAsRating
+import com.bokorzslt.ui.utils.hide
 import com.bokorzslt.ui.utils.show
 import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -40,6 +43,9 @@ class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
+
+    private val rootContainer: NestedScrollView
+        get() = binding.detailsScrollView
 
     private val loadingSpinner: CircularProgressIndicator
         get() = binding.detailsLoadingSpinner
@@ -83,6 +89,9 @@ class DetailsFragment : Fragment() {
     private val viewPager: ViewPager2
         get() = binding.detailsViewPager
 
+    private val errorView: ErrorView
+        get() = binding.errorView
+
     private val args by navArgs<DetailsFragmentArgs>()
     private val viewModel: DetailsViewModel by viewModel { parametersOf(args.movieId) }
 
@@ -101,12 +110,6 @@ class DetailsFragment : Fragment() {
         observeState()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        (activity as? MainActivity)?.showBottomNavigation()
-    }
-
     private fun observeState() =
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -120,11 +123,15 @@ class DetailsFragment : Fragment() {
                         is DetailsViewModel.DetailsUiState.Success -> {
                             Timber.d("Detail page loaded")
                             loadingSpinner.hide()
+                            errorView.hide()
+                            rootContainer.show()
                             showDetails(state.movie)
                         }
 
                         is DetailsViewModel.DetailsUiState.Error -> {
-                            Timber.e("Failed to load movie: ${state.throwable}")
+                            Timber.e(state.throwable, "Failed to load movie")
+                            rootContainer.hide()
+                            errorView.show()
                         }
                     }
                 }
@@ -182,10 +189,12 @@ class DetailsFragment : Fragment() {
     }
 
     private fun showCastList(movie: MovieDetails) {
-        castRecyclerView.setHasFixedSize(true)
-        castRecyclerView.layoutManager =
-            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        castRecyclerView.adapter = CastAdapter(movie.castList)
+        if (castRecyclerView.adapter == null) {
+            castRecyclerView.setHasFixedSize(true)
+            castRecyclerView.layoutManager =
+                LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            castRecyclerView.adapter = CastAdapter(movie.castList)
+        }
     }
 
     private fun setupViewPager() {
@@ -213,5 +222,11 @@ class DetailsFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabs[position]
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        (activity as? MainActivity)?.showBottomNavigation()
     }
 }
