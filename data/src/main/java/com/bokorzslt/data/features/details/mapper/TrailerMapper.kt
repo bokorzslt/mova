@@ -7,7 +7,6 @@ import com.bokorzslt.domain.features.details.models.TrailerProvider
 
 fun TrailerDto.toTrailer(): Trailer {
     val provider = TrailerProvider.from(site.orEmpty())
-    Log.d("TrailerMapper", "site: $site")
     return Trailer(
         id = id.orEmpty(),
         name = name.orEmpty(),

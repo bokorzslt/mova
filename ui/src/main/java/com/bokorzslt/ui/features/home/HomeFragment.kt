@@ -91,7 +91,7 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
-            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         adapter = HomeAdapter(
             movieClickListener = { navigateToDetails(it) },
             searchClickListener = { navigateToSearch() },
@@ -107,11 +107,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToSearch() {
-        Toast.makeText(context, "Search clicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Search clicked", Toast.LENGTH_SHORT).show()
     }
 
     private fun navigateToNotifications() {
-        Toast.makeText(context, "Notifications clicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Notifications clicked", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

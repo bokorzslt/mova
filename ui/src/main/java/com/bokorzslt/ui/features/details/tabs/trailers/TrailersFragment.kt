@@ -61,7 +61,7 @@ class TrailersFragment : Fragment() {
     private fun setupRecyclerView() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter = TrailerAdapter().also {
             recyclerView.adapter = it
         }
@@ -85,6 +85,7 @@ class TrailersFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        recyclerView.adapter = null
         _binding = null
     }
 }

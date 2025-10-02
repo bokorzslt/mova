@@ -61,7 +61,7 @@ class CommentsFragment : Fragment() {
     private fun setupRecyclerView() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter = ReviewAdapter().also {
             recyclerView.adapter = it
         }
@@ -86,6 +86,7 @@ class CommentsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        recyclerView.adapter = null
         _binding = null
     }
 }

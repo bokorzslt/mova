@@ -97,6 +97,7 @@ class SimilarMoviesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        recyclerView.adapter = null
         _binding = null
     }
 }
