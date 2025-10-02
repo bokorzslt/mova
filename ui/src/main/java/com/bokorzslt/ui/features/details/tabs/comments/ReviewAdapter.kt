@@ -2,15 +2,15 @@ package com.bokorzslt.ui.features.details.tabs.comments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bokorzslt.domain.features.details.models.Review
 import com.bokorzslt.ui.R
 import com.bokorzslt.ui.databinding.ItemReviewBinding
 import com.bumptech.glide.Glide
 
-class ReviewAdapter(
-    private val reviews: List<Review>
-) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+class ReviewAdapter : ListAdapter<Review, ReviewAdapter.ViewHolder>(REVIEW_DIFF) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,11 +21,7 @@ class ReviewAdapter(
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
-    ) = holder.bind(reviews[position])
-
-    override fun getItemCount(): Int =
-        reviews.size
-
+    ) = holder.bind(currentList[position])
 
     class ViewHolder(
         private val binding: ItemReviewBinding
@@ -41,6 +37,22 @@ class ReviewAdapter(
             binding.reviewCardAuthorName.text = review.authorName
             binding.reviewCardContent.text = review.content
             binding.reviewCardCreatedAt.text = review.createdAt
+        }
+    }
+
+    companion object {
+        private val REVIEW_DIFF = object : DiffUtil.ItemCallback<Review>() {
+            override fun areItemsTheSame(
+                oldItem: Review,
+                newItem: Review
+            ): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: Review,
+                newItem: Review
+            ): Boolean =
+                oldItem == newItem
         }
     }
 }

@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bokorzslt.domain.features.home.models.Movie
 import com.bokorzslt.ui.R
 import com.bokorzslt.ui.databinding.FragmentSimilarMoviesBinding
 import com.bokorzslt.ui.features.home.adapter.MovieAdapter
@@ -23,6 +22,7 @@ class SimilarMoviesFragment : Fragment() {
 
     companion object {
         private const val ARG_MOVIE_ID = "movie_id"
+        private const val NUMBER_OF_COLUMNS = 2
 
         fun newInstance(movieId: Long): SimilarMoviesFragment =
             SimilarMoviesFragment().apply {
@@ -42,6 +42,8 @@ class SimilarMoviesFragment : Fragment() {
 
     private val viewModel: SimilarMoviesViewModel by viewModel { parametersOf(movieId) }
 
+    private lateinit var movieAdapter: MovieAdapter
+
     private val recyclerView: RecyclerView
         get() = binding.similarMoviesList
 
@@ -56,7 +58,21 @@ class SimilarMoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         observeState()
+    }
+
+    private fun setupRecyclerView() {
+        movieAdapter = MovieAdapter { movie ->
+            // Handle movie click - can be implemented later if needed
+        }
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(requireContext(), NUMBER_OF_COLUMNS)
+            adapter = movieAdapter
+            val verticalSpacing = resources.getDimension(R.dimen.margin_12)
+            addItemDecoration(VerticalSpacingItemDecoration(verticalSpacing.toInt()))
+        }
     }
 
     private fun observeState() {
@@ -65,12 +81,14 @@ class SimilarMoviesFragment : Fragment() {
                 viewModel.state.collect { state ->
                     when (state) {
                         is SimilarMoviesViewModel.SimilarMoviesUiState.Loading -> Unit
-                        is SimilarMoviesViewModel.SimilarMoviesUiState.Success -> showSimilarMovies(
+                        is SimilarMoviesViewModel.SimilarMoviesUiState.Success -> movieAdapter.submitList(
                             state.movies
                         )
 
-                        is SimilarMoviesViewModel.SimilarMoviesUiState.Error ->
+                        is SimilarMoviesViewModel.SimilarMoviesUiState.Error -> {
                             Timber.e(state.throwable, "Could not load similar movies")
+                            movieAdapter.submitList(emptyList())
+                        }
                     }
                 }
             }
@@ -80,16 +98,5 @@ class SimilarMoviesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun showSimilarMovies(movies: List<Movie>) {
-        val adapter = MovieAdapter(movies) { movie ->
-            // Handle movie click - can be implemented later if needed
-        }
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        val verticalSpacing = resources.getDimension(R.dimen.margin_12)
-        recyclerView.addItemDecoration(VerticalSpacingItemDecoration(verticalSpacing.toInt()))
-        recyclerView.adapter = adapter
     }
 }

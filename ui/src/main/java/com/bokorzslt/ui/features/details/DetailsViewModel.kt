@@ -7,7 +7,6 @@ import com.bokorzslt.ui.generic.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
 
 class DetailsViewModel(
     movieId: Long,
@@ -29,7 +28,6 @@ class DetailsViewModel(
     }
 
     init {
-        Timber.d("Load details for movie: $movieId")
         loadMovieDetails(movieId)
     }
 

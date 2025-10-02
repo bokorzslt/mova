@@ -11,4 +11,5 @@
     <string name="details_trailers_tab">Trailers</string>
     <string name="details_more_like_this_tab">Related</string>
     <string name="details_comments_tab">Comments</string>
+    <string name="error_view_text">Ooops... Something went wrong</string>
 </resources>

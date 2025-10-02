@@ -3,7 +3,9 @@ package com.bokorzslt.ui.features.home.adapter
 import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bokorzslt.domain.features.details.models.MovieDetails
 import com.bokorzslt.domain.features.home.models.HomePageModule
@@ -17,59 +19,51 @@ import com.bumptech.glide.Glide
 typealias MovieClickListener = (Movie) -> Unit
 
 class HomeAdapter(
-    private val modules: List<HomePageModule>,
     private val movieClickListener: MovieClickListener,
     private val searchClickListener: OnClickListener,
     private val notificationClickListener: OnClickListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : ListAdapter<HomePageModule, RecyclerView.ViewHolder>(HOME_PAGE_DIFF) {
+
+    private val sharedViewPool = RecyclerView.RecycledViewPool()
 
     override fun getItemViewType(position: Int): Int =
-        when (modules[position]) {
+        when (currentList[position]) {
             is HomePageModule.GalleryModule -> GALLERY_VIEW_TYPE
             is HomePageModule.StripeModule -> STRIPE_VIEW_TYPE
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
             GALLERY_VIEW_TYPE -> GalleryViewHolder(
                 ItemGalleryBinding.inflate(
-                    LayoutInflater.from(
-                        parent.context
-                    ),
+                    inflater,
                     parent,
                     false
-                ),
-                searchClickListener,
-                notificationClickListener
+                )
+
             )
 
             STRIPE_VIEW_TYPE -> StripeViewHolder(
                 ItemStripeBinding.inflate(
-                    LayoutInflater.from(
-                        parent.context
-                    ),
+                    inflater,
                     parent,
                     false
-                ),
-                movieClickListener
+                )
             )
 
             else -> throw IllegalArgumentException("Unknown view type")
         }
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        when (val module = modules[position]) {
+        when (val module = currentList[position]) {
             is HomePageModule.GalleryModule -> (holder as GalleryViewHolder).bind(module.movie)
             is HomePageModule.StripeModule -> (holder as StripeViewHolder).bind(module.stripe)
-            else -> throw IllegalArgumentException("Unknown view holder type")
         }
 
-    override fun getItemCount(): Int = modules.size
-
-    class GalleryViewHolder(
-        private val binding: ItemGalleryBinding,
-        searchClickListener: OnClickListener,
-        notificationClickListener: OnClickListener
+    inner class GalleryViewHolder(
+        private val binding: ItemGalleryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -87,25 +81,57 @@ class HomeAdapter(
         }
     }
 
-    class StripeViewHolder(
-        private val binding: ItemStripeBinding,
-        private val movieClickListener: MovieClickListener
+    inner class StripeViewHolder(
+        private val binding: ItemStripeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        private val movieAdapter: MovieAdapter = MovieAdapter(movieClickListener)
+
         init {
-            binding.stripeRecyclerView.setHasFixedSize(true)
+            with(binding) {
+                stripeRecyclerView.setHasFixedSize(true)
+                stripeRecyclerView.layoutManager =
+                    LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+                stripeRecyclerView.setRecycledViewPool(sharedViewPool)
+                stripeRecyclerView.adapter = movieAdapter
+            }
         }
 
         fun bind(stripe: Stripe) {
             binding.stripeTitle.text = stripe.title
-            binding.stripeRecyclerView.layoutManager =
-                LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
-            binding.stripeRecyclerView.adapter = MovieAdapter(stripe.movies, movieClickListener)
+            movieAdapter.submitList(stripe.movies)
         }
     }
 
     companion object {
         private const val GALLERY_VIEW_TYPE = 0
         private const val STRIPE_VIEW_TYPE = 1
+
+        val HOME_PAGE_DIFF = object : DiffUtil.ItemCallback<HomePageModule>() {
+            override fun areItemsTheSame(
+                oldItem: HomePageModule,
+                newItem: HomePageModule
+            ): Boolean {
+                return when {
+                    oldItem is HomePageModule.GalleryModule &&
+                            newItem is HomePageModule.GalleryModule ->
+                        oldItem.movie.id == newItem.movie.id
+
+                    oldItem is HomePageModule.StripeModule &&
+                            newItem is HomePageModule.StripeModule ->
+                        oldItem.stripe.title == newItem.stripe.title &&
+                                oldItem.stripe.movies.map { it.id } == newItem.stripe.movies.map { it.id }
+
+                    else -> false
+                }
+            }
+
+            override fun areContentsTheSame(
+                oldItem: HomePageModule,
+                newItem: HomePageModule
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }
